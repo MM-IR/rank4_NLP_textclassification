@@ -70,7 +70,35 @@ adversial_validation.py # 对抗验证-检测训练数据与测试数据是否�
  -stacking.py # demo 
 ```
 
-## performance一览(本次比赛线上和线下的分数基本一致,但是本人测试可能类别分布上有一些差异)
+## how to run(一些模型文件没有上传，可能会报错，建议自己debug)
+```
+1. pretrain the bert: 
+- cd Pretrain_Bert/
+- python run_pretraining.py
+
+2. bertbilstm+attn:
+- cd bert/
+- python bert_mini_lstm_pl.py # 添加了伪标签, 如果要去掉, 把pl_ensemble_0.95.npy 有关的去掉就行
+
+3. bert系列
+- cd Bert_Variations/
+- CUDA_VISIBLE_DEVICES=0 python run_*.py --model ** # (*-you know, **-表示对应的模型文件，比如bert_RNN.py就是bert_RNN)
+
+4. textbigru/textcapsule/textcnn 
+- cd textbigru/
+- python x.py
+
+5. fasttext_retrieval
+- python fasttext_train.py
+
+6. tfidf_baseline
+- python tfidf_lightgbm_cv_baseline.py
+
+7. stacking/blending-demo(具体的本人写在ipython里-没有保存emm-但本demo还是有较强的可复用性的)
+- python stacking.py
+
+```
+## 多方案performance一览(本次比赛线上和线下的分数基本一致,但是本人测试可能类别分布上有一些差异)
 |方案(无cv表示singlefold单模型)|线下验证结果f1 score|
 |---|---|
 |tfidf_lightgbm_cv|0.943~0.945|
@@ -79,3 +107,12 @@ adversial_validation.py # 对抗验证-检测训练数据与测试数据是否�
 |bertbilstmattn|0.9597|
 |bert系列没有特别多的记录|0.955+|
 |fasttext-text retrieval|0.93|
+
+## 融合测试
+基本上textbigru_cv+bertbilstmattn (无pl) 此时也有0.969的成绩
+加上pl其实就比较接近0.97了
+后来我尝试了加上几个bert系列(后悔没有加上pl，否则可能还会提高) 结合tfidf做了一下对应lr, lightgbm, xgboost的stacking-B榜分数达到0.9702
+总结: 其实我在线下验证集上达到了0.971, 但是我觉得可能B榜的类别分布与训练集不一样，所以我只有0.9702。
+
+具体的细节可以关注我在Datawhale和知乎上的讲解。
+
