@@ -74,6 +74,7 @@ adversial_validation.py # 对抗验证-检测训练数据与测试数据是否�
 ```
 1. pretrain the bert: 
 - cd Pretrain_Bert/
+- python bert_input.py
 - python run_pretraining.py
 
 2. bertbilstm+attn:
