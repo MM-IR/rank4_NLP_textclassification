@@ -68,3 +68,14 @@ adversial_validation.py # 对抗验证-检测训练数据与测试数据是否�
  -tfidf.py # tfidf features
    
  -stacking.py # demo 
+```
+
+## performance一览(本次比赛线上和线下的分数基本一致,但是本人测试可能类别分布上有一些差异)
+|方案(无cv表示singlefold单模型)|线下验证结果f1 score|
+|---|---|
+|tfidf_lightgbm_cv|0.943~0.945|
+|textbirgru+pl|0.959|
+|textcnn-FC|0.943|
+|bertbilstmattn|0.9597|
+|bert系列没有特别多的记录|0.955+|
+|fasttext-text retrieval|0.93|
