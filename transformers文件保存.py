@@ -24,4 +24,8 @@ tokenizer = BertTokenizer.from_pretrained(output_dir, do_lower_case=args.do_lowe
 model = OpenAIGPTDoubleHeadsModel.from_pretrained(output_dir)
 tokenizer = OpenAIGPTTokenizer.from_pretrained(output_dir)
 
+# 直接搞BERT
+modelConfig = BertConfig.from_pretrained('bert-base-uncased-config.json')
+self.textExtractor = BertModel.from_pretrained(
+            'bert-base-uncased-pytorch_model.bin', config=modelConfig)
 
